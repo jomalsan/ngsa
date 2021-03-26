@@ -19,9 +19,10 @@ spec:
     app:
       args:
       - --no-cache
-      - -z
+      - --prometheus
+      - --zone
       - dev
-      - -r
+      - --region
       - dev
       secretName: ngsa-secrets
       image:
@@ -36,3 +37,9 @@ spec:
       - /
     gateway:
       name: wildcard-gateway
+    podAnnotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/path: '/metrics'
+      prometheus.io/port: '8080'
+      prometheus.io/scheme: 'http'
+      interval: '30s'
