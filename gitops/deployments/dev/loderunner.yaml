@@ -29,7 +29,7 @@ spec:
         imagePullPolicy: Always
         args:
         - -l
-        - "100"
+        - "50"
         - -r
         - -s
         - http://ngsa-memory.ngsa:8080
