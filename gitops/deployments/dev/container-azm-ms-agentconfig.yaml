@@ -14,7 +14,7 @@ data:
     [log_collection_settings]
         [log_collection_settings.stdout]
           # In the absense of this configmap, default value for enabled is true
-          enabled = false
+          enabled = true
           # exclude_namespaces setting holds good only if enabled is set to true
           # kube-system log collection is disabled by default in the absence of 'log_collection_settings.stdout' setting. If you want to enable kube-system, remove it from the following setting.
           # If you want to continue to disable kube-system log collection keep this namespace in the following setting and add any other namespace you want to disable log collection to the array.
@@ -23,7 +23,7 @@ data:
 
         [log_collection_settings.stderr]
           # Default value for enabled is true
-          enabled = false
+          enabled = true
           # exclude_namespaces setting holds good only if enabled is set to true
           # kube-system log collection is disabled by default in the absence of 'log_collection_settings.stderr' setting. If you want to enable kube-system, remove it from the following setting.
           # If you want to continue to disable kube-system log collection keep this namespace in the following setting and add any other namespace you want to disable log collection to the array.
@@ -50,7 +50,7 @@ data:
         # Any errors related to prometheus scraping can be found in the KubeMonAgentEvents table in the Log Analytics workspace that the cluster is sending data to.
 
         #Interval specifying how often to scrape for metrics. This is duration of time and can be specified for supporting settings by combining an integer value and time unit as a string value. Valid time units are ns, us (or µs), ms, s, m, h.
-        interval = "10m"
+        interval = "1m"
 
         ## Uncomment the following settings with valid string arrays for prometheus scraping
         #fieldpass = ["metric_to_pass1", "metric_to_pass12"]
@@ -69,7 +69,7 @@ data:
         #     set this to `https` & most likely set the tls config.
         # - prometheus.io/path: If the metrics path is not /metrics, define it with this annotation.
         # - prometheus.io/port: "80"
-        monitor_kubernetes_pods = false
+        monitor_kubernetes_pods = true
 
         ## Restricts Kubernetes monitoring to namespaces for pods that have annotations set and are scraped using the monitor_kubernetes_pods setting.
         ## This will take effect when monitor_kubernetes_pods is set to true
@@ -81,7 +81,7 @@ data:
         # Any errors related to prometheus scraping can be found in the KubeMonAgentEvents table in the Log Analytics workspace that the cluster is sending data to.
 
         #Interval specifying how often to scrape for metrics. This is duration of time and can be specified for supporting settings by combining an integer value and time unit as a string value. Valid time units are ns, us (or µs), ms, s, m, h.
-        interval = "10m"
+        interval = "1m"
 
         ## Uncomment the following settings with valid string arrays for prometheus scraping
 
