@@ -3,6 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: remove-prefix
+  namespace: ngsa
 spec:
   stripPrefix:
     prefixes:
@@ -24,7 +25,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: traefik
     traefik.ingress.kubernetes.io/router.tls: "false"
     # traefik.ingress.kubernetes.io/router.tls.options: default
-    traefik.ingress.kubernetes.io/router.middlewares: remove-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: ngsa-remove-prefix@kubernetescrd
 spec:
   rules:
   - http:
@@ -52,7 +53,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: traefik
     traefik.ingress.kubernetes.io/router.tls: "false"
     # traefik.ingress.kubernetes.io/router.tls.options: default
-    # traefik.ingress.kubernetes.io/router.middlewares: app-gateway-snet@file, gzip-compress@file
+    traefik.ingress.kubernetes.io/router.middlewares: ngsa-remove-prefix@kubernetescrd
 spec:
   rules:
   - http:
