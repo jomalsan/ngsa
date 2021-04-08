@@ -173,6 +173,9 @@ spec:
   - port: 443
     name: https
     targetPort: websecure
+  - port: 8080
+    name: dashboard
+    targetPort: traefik
 ---
 apiVersion: apps/v1
 kind: Deployment
