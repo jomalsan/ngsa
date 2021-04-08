@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: remove-prefix
+  name: removeprefix
   namespace: ngsa
 spec:
   stripPrefix:
@@ -22,10 +22,10 @@ metadata:
     # For backwards compatibility, when this annotation is set, precedence is given over the new field ingressClassName under spec.
     kubernetes.io/ingress.class: traefik-internal
     # kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web
     traefik.ingress.kubernetes.io/router.tls: "false"
     # traefik.ingress.kubernetes.io/router.tls.options: default
-    traefik.ingress.kubernetes.io/router.middlewares: ngsa-remove-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: ngsa-removeprefix@kubernetescrd
 spec:
   rules:
   - http:
@@ -50,10 +50,10 @@ metadata:
     # For backwards compatibility, when this annotation is set, precedence is given over the new field ingressClassName under spec.
     kubernetes.io/ingress.class: traefik-internal
     # kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web
     traefik.ingress.kubernetes.io/router.tls: "false"
     # traefik.ingress.kubernetes.io/router.tls.options: default
-    traefik.ingress.kubernetes.io/router.middlewares: ngsa-remove-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: ngsa-removeprefix@kubernetescrd
 spec:
   rules:
   - http:
