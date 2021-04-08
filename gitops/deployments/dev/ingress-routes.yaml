@@ -17,7 +17,7 @@ metadata:
   namespace: ngsa
 spec:
   entryPoints:                      # [1]
-    - web
+    - traefik
   routes:                           # [2]
   - kind: Rule
     match: PathPrefix(`/cosmos`)    # [3]

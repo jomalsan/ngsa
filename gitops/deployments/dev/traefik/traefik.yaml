@@ -127,8 +127,6 @@ data:
         address = ":8080"
       [entryPoints.traefik]
         address = ":9000"
-      [entryPoints.web]
-        address = ":80"
       # [entryPoints.websecure]
       #   address = ":8443"
       #   [entryPoints.web.forwardedHeaders]
@@ -178,9 +176,6 @@ spec:
   - port: 9000
     name: traefik
     targetPort: traefik
-  - port: 80
-    name: web
-    targetPort: web
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -249,8 +244,6 @@ spec:
         - name: "websecure"
           containerPort: 8443
           protocol: TCP
-        - name: "web"
-          containerPort: 80
         - name: "metrics"
           containerPort: 8082
           protocol: TCP
