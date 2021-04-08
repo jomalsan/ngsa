@@ -8,13 +8,10 @@ metadata:
     app.kubernetes.io/instance: traefik-ingress-ilb
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: traefik-ingress-controller
-  namespace: traefik
-  labels:
-    app.kubernetes.io/name: traefik-ingress-ilb
-    app.kubernetes.io/instance: traefik-ingress-ilb
+
 rules:
   - apiGroups:
       - ""
@@ -28,8 +25,10 @@ rules:
       - watch
   - apiGroups:
       - extensions
+      - networking.k8s.io
     resources:
       - ingresses
+      - ingressclasses
     verbs:
       - get
       - list
@@ -43,34 +42,31 @@ rules:
   - apiGroups:
       - traefik.containo.us
     resources:
+      - middlewares
       - ingressroutes
+      - traefikservices
       - ingressroutetcps
       - ingressrouteudps
-      - middlewares
       - tlsoptions
       - tlsstores
-      - traefikservices
     verbs:
       - get
       - list
       - watch
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
-  name: traefik-watch-workloads
-  namespace: traefik
-  labels:
-    app.kubernetes.io/name: traefik-ingress-ilb
-    app.kubernetes.io/instance: traefik-ingress-ilb
+  name: traefik-ingress-controller
+
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: traefik-ingress-controller
 subjects:
-- kind: ServiceAccount
-  name: traefik-ingress-controller
-  namespace: traefik
+  - kind: ServiceAccount
+    name: traefik-ingress-controller
+    namespace: default
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -110,11 +106,13 @@ data:
         watch = true
       # Traefik provider that supports the native Kubernetes Ingress specification
       # and derives the corresponding dynamic configuration from it. https://kubernetes.io/docs/concepts/services-networking/ingress/
-      [providers.kubernetesingress]
+      # [providers.kubernetesingress]
+      #   ingressClass = "traefik-internal"
+      #   # namespaces = ["a0008"] # Commented out to watch all namespaces
+      #   [providers.kubernetesIngress.ingressEndpoint]
+      #     publishedService = "traefik/traefik-ingress-service"
+      [providers.kubernetesCRD]
         ingressClass = "traefik-internal"
-        # namespaces = ["a0008"] # Commented out to watch all namespaces
-        [providers.kubernetesIngress.ingressEndpoint]
-          publishedService = "traefik/traefik-ingress-service"
     # Enable gzip compression
     [http.middlewares]
       [http.middlewares.gzip-compress.compress]
