@@ -11,9 +11,9 @@ metadata:
     # For backwards compatibility, when this annotation is set, precedence is given over the new field ingressClassName under spec.
     kubernetes.io/ingress.class: traefik-internal
     # kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: apps
+    traefik.ingress.kubernetes.io/router.entrypoints: traefik
     traefik.ingress.kubernetes.io/router.tls: "false"
-    traefik.ingress.kubernetes.io/router.tls.options: default
+    # traefik.ingress.kubernetes.io/router.tls.options: default
     # traefik.ingress.kubernetes.io/router.middlewares: app-gateway-snet@file, gzip-compress@file
 spec:
   rules:
@@ -39,9 +39,9 @@ metadata:
     # For backwards compatibility, when this annotation is set, precedence is given over the new field ingressClassName under spec.
     kubernetes.io/ingress.class: traefik-internal
     # kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: apps
+    traefik.ingress.kubernetes.io/router.entrypoints: traefik
     traefik.ingress.kubernetes.io/router.tls: "false"
-    traefik.ingress.kubernetes.io/router.tls.options: default
+    # traefik.ingress.kubernetes.io/router.tls.options: default
     # traefik.ingress.kubernetes.io/router.middlewares: app-gateway-snet@file, gzip-compress@file
 spec:
   rules:
