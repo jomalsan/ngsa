@@ -53,7 +53,7 @@ spec:
       scheme: http
       strategy: RoundRobin
       weight: 10
-    - kind: Rule
+  - kind: Rule
     match: Path(`/`)    # [3]
     priority: 10                    # [4]
     services:                       # [8]
