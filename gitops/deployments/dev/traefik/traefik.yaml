@@ -123,6 +123,10 @@ data:
     [entryPoints]
       [entryPoints.metrics]
         address = ":8082"
+      [entryPoints.apps]
+        address = ":80"
+      [entryPoints.dashboard]
+        address = ":8080"
       [entryPoints.traefik]
         address = ":9000"
       [entryPoints.websecure]
@@ -175,7 +179,10 @@ spec:
     targetPort: websecure
   - port: 80
     name: apps
-    targetPort: traefik
+    targetPort: apps
+  - port: 8080
+    name: dashboard
+    targetPort: dashboard
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -266,6 +273,9 @@ spec:
           protocol: TCP
         - name: "metrics"
           containerPort: 8082
+          protocol: TCP
+        - name: "dashboard"
+          containerPort: 8080
           protocol: TCP
         securityContext:
           capabilities:
