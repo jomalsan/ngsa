@@ -176,6 +176,9 @@ spec:
   - port: 8080
     name: dashboard
     targetPort: traefik
+  - port: 8082
+    name: metrics
+    targetPort: metrics
 ---
 apiVersion: apps/v1
 kind: Deployment
