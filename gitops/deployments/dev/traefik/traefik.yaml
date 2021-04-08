@@ -178,7 +178,7 @@ spec:
   - port: 8080
     name: dashboard
     targetPort: dashboard
-  - port: 80
+  - port: 9000
     name: traefik
     targetPort: traefik
 ---
