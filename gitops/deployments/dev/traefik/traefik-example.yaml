@@ -31,7 +31,6 @@ spec:
             - --api.insecure
             - --entrypoints.web.address=:80
             - --entrypoints.tcpep.address=:8000
-            - --entrypoints.udpep.address=:9000/udp
             - --providers.kubernetescrd
           ports:
             - name: web
@@ -40,8 +39,6 @@ spec:
               containerPort: 8080
             - name: tcpep
               containerPort: 8000
-            - name: udpep
-              containerPort: 9000
 
 ---
 apiVersion: v1
@@ -65,18 +62,3 @@ spec:
       port: 8000
       name: tcpep
       targetPort: 8000
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: traefikudp
-spec:
-  type: LoadBalancer
-  selector:
-    app: traefik
-  ports:
-    - protocol: UDP
-      port: 9000
-      name: udpep
-      targetPort: 9000

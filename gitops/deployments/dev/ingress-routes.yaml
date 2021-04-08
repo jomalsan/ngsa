@@ -43,12 +43,3 @@ spec:
       namespace: ngsa
       passHostHeader: true
       port: 8080
-  - kind: Rule
-    match: Path(`/`)    # [3]
-    priority: 1                    # [4]
-    services:                       # [8]
-    - kind: Service
-      name: ngsa-memory
-      namespace: ngsa
-      passHostHeader: true
-      port: 8080
