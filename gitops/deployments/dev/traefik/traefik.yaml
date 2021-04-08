@@ -173,9 +173,12 @@ spec:
   - port: 443
     name: https
     targetPort: websecure
+  - port: 9000
+    name: traefik
+    targetPort: traefik
   - port: 8080
     name: dashboard
-    targetPort: traefik
+    targetPort: dashboard
   - port: 8082
     name: metrics
     targetPort: metrics
@@ -266,6 +269,9 @@ spec:
           protocol: TCP
         - name: "metrics"
           containerPort: 8082
+          protocol: TCP
+        - name: "dashboard"
+          containerPort: 8080
           protocol: TCP
         securityContext:
           capabilities:
