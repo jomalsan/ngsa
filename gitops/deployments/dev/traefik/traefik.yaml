@@ -173,15 +173,9 @@ spec:
   - port: 443
     name: https
     targetPort: websecure
-  - port: 9000
-    name: traefik
+  - port: 80
+    name: apps
     targetPort: traefik
-  - port: 8080
-    name: dashboard
-    targetPort: dashboard
-  - port: 8082
-    name: metrics
-    targetPort: metrics
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -264,14 +258,14 @@ spec:
         - name: "traefik"
           containerPort: 9000
           protocol: TCP
+        - name: "apps"
+          containerPort: 80
+          protocol: 80
         - name: "websecure"
           containerPort: 8443
           protocol: TCP
         - name: "metrics"
           containerPort: 8082
-          protocol: TCP
-        - name: "dashboard"
-          containerPort: 8080
           protocol: TCP
         securityContext:
           capabilities:
