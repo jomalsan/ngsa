@@ -1,0 +1,55 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: removeprefix
+  namespace: ngsa
+spec:
+  stripPrefix:
+    prefixes:
+      - /memory
+      - /cosmos
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ngsa-routes
+  namespace: ngsa
+spec:
+  entryPoints:                      # [1]
+    - web
+  routes:                           # [2]
+  - kind: Rule
+    match: PathPrefix(`/cosmos`)    # [3]
+    priority: 10                    # [4]
+    middlewares:                    # [5]
+    - name: removeprefix            # [6]
+      namespace: ngsa               # [7]
+    services:                       # [8]
+    - kind: Service
+      name: ngsa-cosmos
+      namespace: ngsa
+      passHostHeader: true
+      port: 8080
+      responseForwarding:
+        flushInterval: 1ms
+      scheme: http
+      strategy: RoundRobin
+      weight: 10
+  - kind: Rule
+    match: PathPrefix(`/memory`)    # [3]
+    priority: 10                    # [4]
+    middlewares:                    # [5]
+    - name: removeprefix            # [6]
+      namespace: ngsa               # [7]
+    services:                       # [8]
+    - kind: Service
+      name: ngsa-memory
+      namespace: ngsa
+      passHostHeader: true
+      port: 8080
+      responseForwarding:
+        flushInterval: 1ms
+      scheme: http
+      strategy: RoundRobin
+      weight: 10
